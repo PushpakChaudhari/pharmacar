@@ -32,6 +32,7 @@ export default function MedicalList() {
     try {
       const res = await axios.get(API_URL);
       setMedicines(res.data);
+      console.log('Fetched Medicines:', res.data); // Debugging line
     } catch (err) {
       console.error('Failed to fetch medicines:', err);
     }
@@ -41,18 +42,18 @@ export default function MedicalList() {
     try {
       const res = await axios.get(CATEGORY_API);
       setCategories(res.data);
-  
+
       // Create a map: { id: name }
       const map = {};
       res.data.forEach(cat => {
         map[cat.id] = cat.name;
       });
       setCategoryMap(map);
+      console.log('Category Map:', map); // Debugging line
     } catch (err) {
       console.error('Failed to fetch categories:', err);
     }
   };
-  
 
   useEffect(() => {
     fetchMedicines();
@@ -76,7 +77,7 @@ export default function MedicalList() {
 
   const handleEdit = (medicine) => {
     setEditingMedicine(medicine.id);
-  
+
     setFormData({
       id: medicine.id || '',
       name: medicine.name || '',
@@ -87,14 +88,13 @@ export default function MedicalList() {
       discount: medicine.discount ?? 0,
       category: medicine.category?.id ?? '',
     });
-  
+
     setShowModal(true);
   };
-  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-  
+
     const updatedMedicine = {
       id: editingMedicine, // ✅ Include ID
       name: formData.name,
@@ -107,14 +107,14 @@ export default function MedicalList() {
         id: parseInt(formData.category),
       },
     };
-  
+
     try {
       await axios.put(`${API_URL}/${editingMedicine}`, updatedMedicine, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       setStatusMessage('Medicine updated successfully.');
       setStatusType('success');
       setEditingMedicine(null);
@@ -137,12 +137,11 @@ export default function MedicalList() {
       setStatusType('danger');
     }
   };
-  
 
   const filteredItems = medicines.filter(
     item => item.name?.toLowerCase().includes(filterText.toLowerCase())
   );
-  console.log(medicines[0]);
+  console.log('Filtered Medicines:', filteredItems); // Debugging line
 
   const columns = [
     { name: 'SL', selector: (_, index) => index + 1, width: '60px' },
@@ -152,9 +151,11 @@ export default function MedicalList() {
     { name: 'Qty', selector: row => row.quantity, right: true },
     { name: 'MRP', selector: row => row.mrp, right: true },
     { name: 'Discount', selector: row => row.discount + '%', right: true },
-    { name: 'Category', selector: row => categoryMap[row.category?.id] || 'Unknown' },
-
-
+    {
+      name: 'Category',
+      selector: row => categoryMap[row.category?.id] || 'Unknown',
+      sortable: true,
+    },
     {
       name: 'Action',
       cell: (row) => (

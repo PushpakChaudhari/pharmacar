@@ -143,128 +143,138 @@ const DashboardContainer = () => {
           )}
         </div>
 
+
         {/* Sales Table */}
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>Medicine Info</th>
-              <th>Batch</th>
-              <th>Expiry Date</th>
-              <th>Qty</th>
-              <th>MRP</th>
-              <th>Discount %</th>
-              <th>Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedMedicines.map((med) => {
-              const qty = med.quantity || 1;
-              const mrp = med.mrp || 0;
-              const discount = med.discount || 0;
-              const total = (qty * mrp * (1 - discount / 100)).toFixed(2);
 
-              return (
-                <tr key={med.id}>
-                  <td>{med.name}</td>
-                  <td>{med.batch || "N/A"}</td>
-                  <td>{med.expiryDate || "MM/YY"}</td>
-                  <td>
-                    <Form.Control
-                      type="number"
-                      min="1"
-                      value={qty}
-                      onChange={(e) => {
-                        const updatedQty = parseInt(e.target.value, 10);
-                        setSelectedMedicines((prev) =>
-                          prev.map((m) =>
-                            m.id === med.id ? { ...m, quantity: updatedQty } : m
-                          )
-                        );
-                      }}
-                    />
-                  </td>
-                  <td>{mrp.toFixed(2)}</td>
-                  <td>{discount}%</td>
-                  <td>{total}</td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() =>
-                        setSelectedMedicines((prev) =>
-                          prev.filter((m) => m.id !== med.id)
-                        )
-                      }
-                    >
-                      Remove
-                    </Button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+        {selectedMedicines.length > 0 && (
+  <>
+    {/* Sales Table */}
+    <Table striped bordered hover size="sm">
+      <thead>
+        <tr>
+          <th>Medicine Info</th>
+          <th>Batch</th>
+          <th>Expiry Date</th>
+          <th>Qty</th>
+          <th>MRP</th>
+          <th>Discount %</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {selectedMedicines.map((med) => {
+          const qty = med.quantity || 1;
+          const mrp = med.mrp || 0;
+          const discount = med.discount || 0;
+          const total = (qty * mrp * (1 - discount / 100)).toFixed(2);
 
-        {/* Summary */}
-        {(() => {
-          const { totalDiscount, vat, grandTotal } = calculateSummary();
           return (
-            <>
-              <div className="row mt-4">
-                <div className="col-md-6 offset-md-6">
-                  <Table borderless size="sm">
-                    <tbody>
-                      <tr><td>Invoice Discount:</td><td>{invoiceDiscount.toFixed(2)}</td></tr>
-                      <tr><td>Total Discount:</td><td>{totalDiscount.toFixed(2)}</td></tr>
-                      <tr><td>Total VAT:</td><td>{vat.toFixed(2)}</td></tr>
-                      <tr><td>Grand Total:</td><td>{grandTotal.toFixed(2)}</td></tr>
-                      <tr><td>Previous:</td><td>0.00</td></tr>
-                      <tr><td>Change:</td><td>0.00</td></tr>
-                    </tbody>
-                  </Table>
-                </div>
-              </div>
+            <tr key={med.id}>
+              <td>{med.name}</td>
+              <td>{med.batch || "N/A"}</td>
+              <td>{med.expiryDate || "MM/YY"}</td>
+              <td>
+                <Form.Control
+                  type="number"
+                  min="1"
+                  value={qty}
+                  onChange={(e) => {
+                    const updatedQty = parseInt(e.target.value, 10);
+                    setSelectedMedicines((prev) =>
+                      prev.map((m) =>
+                        m.id === med.id ? { ...m, quantity: updatedQty } : m
+                      )
+                    );
+                  }}
+                />
+              </td>
+              <td>{mrp.toFixed(2)}</td>
+              <td>{discount}%</td>
+              <td>{total}</td>
+              <td>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() =>
+                    setSelectedMedicines((prev) =>
+                      prev.filter((m) => m.id !== med.id)
+                    )
+                  }
+                >
+                  Remove
+                </Button>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </Table>
 
-              <div className="d-flex justify-content-end gap-2 mt-3">
-  <Button variant="warning" onClick={() => setShowPaymentModal(true)}>Full Paid</Button>
-  <Button variant="success" onClick={() => setShowPaymentModal(true)}>Cash Payment</Button>
-  <Button variant="primary" onClick={() => setShowPaymentModal(true)}>Bank Payment</Button>
-</div>
-{showPaymentModal && (
-  <div
-    className="position-fixed top-50 start-50 translate-middle bg-white shadow-lg border rounded-4 p-4 text-center"
-    style={{ zIndex: 1050, minWidth: '300px', maxWidth: '90vw' }}
-  >
-    <h4 className="text-success fw-bold mb-3">🎉 Payment Successful!</h4>
-    <p className="text-muted mb-3">
-      Thank you for your payment. Wishing you good health and a speedy recovery! 💊
-    </p>
-    <p className="text-secondary small mb-4">
-      Your support helps us provide better healthcare for everyone.
-    </p>
-    <Button
-  variant="success"
-  onClick={() => {
-    setShowPaymentModal(false);
-    setSelectedMedicines([]);
-  }}
->
-  Close
-</Button>
-  </div>
+    {/* Summary */}
+    {(() => {
+      const { totalDiscount, vat, grandTotal } = calculateSummary();
+      return (
+        <>
+          <div className="row mt-4">
+            <div className="col-md-6 offset-md-6">
+              <Table borderless size="sm">
+                <tbody>
+                  <tr><td>Invoice Discount:</td><td>{invoiceDiscount.toFixed(2)}</td></tr>
+                  <tr><td>Total Discount:</td><td>{totalDiscount.toFixed(2)}</td></tr>
+                  <tr><td>Total VAT:</td><td>{vat.toFixed(2)}</td></tr>
+                  <tr><td>Grand Total:</td><td>{grandTotal.toFixed(2)}</td></tr>
+                  <tr><td>Previous:</td><td>0.00</td></tr>
+                  <tr><td>Change:</td><td>0.00</td></tr>
+                </tbody>
+              </Table>
+            </div>
+          </div>
+
+          {/* Payment Buttons */}
+          <div className="d-flex justify-content-end gap-2 mt-3">
+            <Button variant="warning" onClick={() => setShowPaymentModal(true)}>Full Paid</Button>
+            <Button variant="success" onClick={() => setShowPaymentModal(true)}>Cash Payment</Button>
+            <Button variant="primary" onClick={() => setShowPaymentModal(true)}>Bank Payment</Button>
+          </div>
+
+          {/* Payment Modal */}
+          {showPaymentModal && (
+            <div
+              className="position-fixed top-50 start-50 translate-middle bg-white shadow-lg border rounded-4 p-4 text-center"
+              style={{ zIndex: 1050, minWidth: '300px', maxWidth: '90vw' }}
+            >
+              <h4 className="text-success fw-bold mb-3">🎉 Payment Successful!</h4>
+              <p className="text-muted mb-3">
+                Thank you for your payment. Wishing you good health and a speedy recovery! 💊
+              </p>
+              <p className="text-secondary small mb-4">
+                Your support helps us provide better healthcare for everyone.
+              </p>
+              <Button
+                variant="success"
+                onClick={() => {
+                  setShowPaymentModal(false);
+                  setSelectedMedicines([]);
+                }}
+              >
+                Close
+              </Button>
+            </div>
+          )}
+
+          {/* Totals */}
+          <div className="d-flex justify-content-between mt-4 border-top pt-3">
+            <div>Net Total: <strong>{grandTotal.toFixed(2)}</strong></div>
+            <div>Paid Amount: <strong>0.00</strong></div>
+            <div>Due Amount: <strong>{grandTotal.toFixed(2)}</strong></div>
+          </div>
+        </>
+      );
+    })()}
+  </>
 )}
 
-
-
-              <div className="d-flex justify-content-between mt-4 border-top pt-3">
-                <div>Net Total: <strong>{grandTotal.toFixed(2)}</strong></div>
-                <div>Paid Amount: <strong>0.00</strong></div>
-                <div>Due Amount: <strong>{grandTotal.toFixed(2)}</strong></div>
-              </div>
-            </>
-          );
-        })()}
       </div> 
     
 
