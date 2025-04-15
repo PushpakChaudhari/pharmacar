@@ -19,8 +19,9 @@ const Dashboard = () => {
         className="bg-dark text-white p-3 d-flex flex-column"
         style={{ width: "200px", height: "100vh", position: "fixed" }}
       >
-        <div>
-          <h5 className="text-center mb-3">Logo</h5>
+        <div  className="text-center mb-4">
+        <img src="https://imgs.search.brave.com/2MklXIO4RQUPivFWsHA8eTG5roYjXVfK-P_G2vQnQAw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtcGxhdGZvcm0u/OTlzdGF0aWMuY29t/Ly9tWUFERTZIak02/cm93T19nZkxaaUFm/QW1JTzQ9LzM3OXg0/OjEzNTB4OTc1L2Zp/dC1pbi81MDB4NTAw/L3Byb2plY3RzLWZp/bGVzLzE4LzE4NzQv/MTg3NDM1LzljMDZm/YTQ4LWE2ZDQtODNl/YS03ODM4LWI2Y2E0/Yzc5ZDExNi5wbmc" alt="Pharmacare Logo" height="80" />
+             
 
           <Button
             variant="outline-light"

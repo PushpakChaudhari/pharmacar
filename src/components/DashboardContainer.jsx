@@ -11,6 +11,7 @@ const DashboardContainer = () => {
   const [medicines, setMedicines] = useState([]);
   const [selectedMedicines, setSelectedMedicines] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("all");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const invoiceDiscount = 0.02;
   const VAT_RATE = 0.05;
@@ -226,10 +227,35 @@ const DashboardContainer = () => {
               </div>
 
               <div className="d-flex justify-content-end gap-2 mt-3">
-                <Button variant="warning">Full Paid</Button>
-                <Button variant="success">Cash Payment</Button>
-                <Button variant="primary">Bank Payment</Button>
-              </div>
+  <Button variant="warning" onClick={() => setShowPaymentModal(true)}>Full Paid</Button>
+  <Button variant="success" onClick={() => setShowPaymentModal(true)}>Cash Payment</Button>
+  <Button variant="primary" onClick={() => setShowPaymentModal(true)}>Bank Payment</Button>
+</div>
+{showPaymentModal && (
+  <div
+    className="position-fixed top-50 start-50 translate-middle bg-white shadow-lg border rounded-4 p-4 text-center"
+    style={{ zIndex: 1050, minWidth: '300px', maxWidth: '90vw' }}
+  >
+    <h4 className="text-success fw-bold mb-3">🎉 Payment Successful!</h4>
+    <p className="text-muted mb-3">
+      Thank you for your payment. Wishing you good health and a speedy recovery! 💊
+    </p>
+    <p className="text-secondary small mb-4">
+      Your support helps us provide better healthcare for everyone.
+    </p>
+    <Button
+  variant="success"
+  onClick={() => {
+    setShowPaymentModal(false);
+    setSelectedMedicines([]);
+  }}
+>
+  Close
+</Button>
+  </div>
+)}
+
+
 
               <div className="d-flex justify-content-between mt-4 border-top pt-3">
                 <div>Net Total: <strong>{grandTotal.toFixed(2)}</strong></div>
@@ -240,7 +266,10 @@ const DashboardContainer = () => {
           );
         })()}
       </div> 
+    
+
     </div> 
+    
   );
 };
 

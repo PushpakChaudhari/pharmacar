@@ -49,3 +49,58 @@ form {
     outline: none;
   }
   
+  .login-background {
+    background: url('https://cdn.prod.website-files.com/5f62665342c50cb6bf43a1e6/6463b058fae8806d54b1de4c_AdobeStock_132398792-min.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+  }
+
+  .login-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.6); /* subtle white overlay */
+    backdrop-filter: blur(5px);
+    z-index: 0;
+  }
+  
+  .container > .card {
+    position: relative;
+    z-index: 1;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #28a745;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .register-background {
+    background: url('https://cdn.prod.website-files.com/5f62665342c50cb6bf43a1e6/6463b058fae8806d54b1de4c_AdobeStock_132398792-min.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  .register-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+  }
+  
+  .container > .card {
+    position: relative;
+    z-index: 1;
+  }
+  

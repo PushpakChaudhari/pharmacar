@@ -27,7 +27,7 @@ const LoginForm = () => {
         <Card className="p-4 shadow" style={{ maxWidth: '400px', width: '100%' }}>
           <Card.Body>
             <div className="text-center mb-4">
-              <img src="/logo.png" alt="Pharmacare Logo" height="40" />
+              <img src="https://imgs.search.brave.com/2MklXIO4RQUPivFWsHA8eTG5roYjXVfK-P_G2vQnQAw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtcGxhdGZvcm0u/OTlzdGF0aWMuY29t/Ly9tWUFERTZIak02/cm93T19nZkxaaUFm/QW1JTzQ9LzM3OXg0/OjEzNTB4OTc1L2Zp/dC1pbi81MDB4NTAw/L3Byb2plY3RzLWZp/bGVzLzE4LzE4NzQv/MTg3NDM1LzljMDZm/YTQ4LWE2ZDQtODNl/YS03ODM4LWI2Y2E0/Yzc5ZDExNi5wbmc" alt="Pharmacare Logo" height="80" />
               <h5 className="mt-2">Pharmacare</h5>
             </div>
             <Form onSubmit={handleSubmit}>
