@@ -4,8 +4,8 @@ import DataTable from 'react-data-table-component';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:8080/api/medicines';
-const CATEGORY_API = 'http://localhost:8080/api/categories';
+const API_URL = 'https://pharmacare-backend.onrender.com/api/medicines';
+const CATEGORY_API = 'https://pharmacare-backend.onrender.com/api/categories';
 
 export default function MedicalList() {
   const [medicines, setMedicines] = useState([]);

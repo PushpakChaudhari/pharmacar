@@ -3,8 +3,8 @@ import axios from "axios";
 import { Button, Table, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const CATEGORY_API_URL = "http://localhost:8080/api/categories";
-const MEDICINE_API_URL = "http://localhost:8080/api/medicines";
+const CATEGORY_API_URL = "https://pharmacare-backend.onrender.com/api/categories";
+const MEDICINE_API_URL = "https://pharmacare-backend.onrender.com/api/medicines";
 
 const DashboardContainer = () => {
   const [categories, setCategories] = useState([]);
@@ -32,11 +32,13 @@ const DashboardContainer = () => {
   const fetchCategories = async () => {
     try {
       const res = await axios.get(CATEGORY_API_URL);
-      setCategories(res.data);
+      const activeCategories = res.data.filter(category => category.status === true); // Filter by status
+      setCategories(activeCategories);
     } catch (err) {
       console.error("Failed to fetch categories:", err);
     }
   };
+  
 
   const fetchAllMedicines = async () => {
     try {

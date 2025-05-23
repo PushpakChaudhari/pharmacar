@@ -13,13 +13,19 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await login({ username, password });
-      alert(res.data);
+      
+      // Store token and username in localStorage
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('username', res.data.username);
       localStorage.setItem('isAuthenticated', 'true');
+  
+      alert(res.data.message); // "Login successful"
       navigate('/dashboard/default');
     } catch (err) {
-      alert("Login failed: " + err.response?.data || err.message);
+      alert("Login failed: " + (err.response?.data || err.message));
     }
   };
+  
 
   return (
     <div className="login-background">

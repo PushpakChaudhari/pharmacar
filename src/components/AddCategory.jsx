@@ -26,7 +26,7 @@ const AddCategory = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8080/api/categories', categoryData, {
+            const response = await axios.post('https://pharmacare-backend.onrender.com/api/categories', categoryData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

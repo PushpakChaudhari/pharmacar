@@ -1,18 +1,26 @@
 import { useState } from 'react';
 import { register } from '../api/auth';
+
+import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Card } from 'react-bootstrap';
 import './style/LoginForm.css';
 export default function RegisterForm({ onRegister }) {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await register(form);
       setMessage('Registration successful!');
       setForm({ username: '', email: '', password: '' });
+
       if (onRegister) onRegister();
+
+      // Navigate to login page after a short delay
+      setTimeout(() => {
+        navigate('/');
+      }, 1500); // Optional delay to let user see the success message
     } catch (error) {
       setMessage('Registration failed: ' + (error.response?.data || error.message));
     }

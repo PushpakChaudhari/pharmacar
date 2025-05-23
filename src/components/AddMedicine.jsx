@@ -17,7 +17,7 @@ const AddMedicine = () => {
 
   // Fetch categories when component mounts
   useEffect(() => {
-    axios.get('http://localhost:8080/api/categories')
+    axios.get('https://pharmacare-backend.onrender.com/api/categories')
       .then((res) => {
         console.log('Fetched categories:', res.data);
         setCategories(res.data); // Fixed: assign directly if API returns an array
@@ -54,7 +54,7 @@ const AddMedicine = () => {
     try {
       console.log("Payload to send:", payload);
 
-      const response = await axios.post('http://localhost:8080/api/medicines', payload, {
+      const response = await axios.post('hhttps://pharmacare-backend.onrender.com/api/medicines', payload, {
         headers: {
           'Content-Type': 'application/json',
         },

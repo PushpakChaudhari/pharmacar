@@ -4,7 +4,7 @@ import DataTable from 'react-data-table-component';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; // Add this at the top
 
-const API_URL = 'http://localhost:8080/api/categories';
+const API_URL = 'https://pharmacare-backend.onrender.com/api/categories';
 
 export default function EditDeleteCategory() {
   const [categories, setCategories] = useState([]);
