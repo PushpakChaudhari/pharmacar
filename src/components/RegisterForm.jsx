@@ -10,20 +10,21 @@ export default function RegisterForm({ onRegister }) {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await register(form);
-      setMessage('Registration successful!');
-      setForm({ username: '', email: '', password: '' });
+   try {
+  const response = await register(form);
+  setMessage('Registration successful!');
+  setForm({ username: '', email: '', password: '' });
 
-      if (onRegister) onRegister();
+  if (onRegister) onRegister();
 
-      // Navigate to login page after a short delay
-      setTimeout(() => {
-        navigate('/');
-      }, 1500); // Optional delay to let user see the success message
-    } catch (error) {
-      setMessage('Registration failed: ' + (error.response?.data || error.message));
-    }
+  // Navigate to login page after a short delay
+  setTimeout(() => {
+    navigate('/login');
+  }, 1500); // Optional delay to let user see the success message
+} catch (error) {
+  setMessage('Registration failed: ' + (error.response?.data?.message || error.message));
+}
+
   };
 
   return (
